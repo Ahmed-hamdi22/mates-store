@@ -1,0 +1,20 @@
+{
+  "Store": {
+    "home": "Home",
+    "name": "Mates Store",
+    "intro": "Couples clothing, thoughtfully paired.",
+    "setup": "Our storefront is taking shape.",
+    "admin": "Admin",
+    "footer": "Mates Store"
+  },
+  "Admin": {
+    "title": "Admin workspace",
+    "description": "Store management will be added in a later feature.",
+    "back": "Back to store"
+  },
+  "Errors": {
+    "title": "Something went wrong",
+    "retry": "Try again",
+    "notFound": "Page not found"
+  }
+}
