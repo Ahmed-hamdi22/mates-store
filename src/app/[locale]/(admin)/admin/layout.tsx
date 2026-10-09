@@ -1,4 +1,5 @@
 import {getTranslations} from 'next-intl/server';
+import {ThemeSwitcher} from '@/components/common/theme-switcher';
 import {Link} from '@/i18n/navigation';
 
 export default async function AdminLayout({children}: {children: React.ReactNode}) {
@@ -9,9 +10,12 @@ export default async function AdminLayout({children}: {children: React.ReactNode
       <header className="border-b bg-background">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
           <span className="font-semibold">{t('title')}</span>
-          <Link href="/" className="text-sm underline-offset-4 hover:underline">
-            {t('back')}
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="text-sm underline-offset-4 hover:underline">
+              {t('back')}
+            </Link>
+            <ThemeSwitcher />
+          </div>
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>

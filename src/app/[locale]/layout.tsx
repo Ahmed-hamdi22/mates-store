@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
+import {ThemeProvider} from '@/components/common/theme-provider';
 import {routing} from '@/i18n/routing';
 import '../globals.css';
 
@@ -27,9 +28,11 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -7,6 +7,12 @@
     "admin": "Admin",
     "footer": "Mates Store"
   },
+  "Theme": {
+    "label": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "Admin": {
     "title": "Admin workspace",
     "description": "Store management will be added in a later feature.",

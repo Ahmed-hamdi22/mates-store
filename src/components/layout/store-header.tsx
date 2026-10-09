@@ -1,5 +1,6 @@
 import {getLocale, getTranslations} from 'next-intl/server';
 import {LanguageSwitcher} from '@/components/common/language-switcher';
+import {ThemeSwitcher} from '@/components/common/theme-switcher';
 import {Link} from '@/i18n/navigation';
 
 export async function StoreHeader() {
@@ -11,7 +12,10 @@ export async function StoreHeader() {
         <Link href="/" className="text-lg font-semibold tracking-tight">
           {t('name')}
         </Link>
-        <LanguageSwitcher locale={locale} />
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher locale={locale} />
+          <ThemeSwitcher />
+        </div>
       </div>
     </header>
   );
