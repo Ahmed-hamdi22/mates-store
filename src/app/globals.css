@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@fontsource-variable/manrope";
+@import "@fontsource/ibm-plex-sans-arabic/400.css";
+@import "@fontsource/ibm-plex-sans-arabic/500.css";
+@import "@fontsource/ibm-plex-sans-arabic/600.css";
+@import "@fontsource/ibm-plex-sans-arabic/700.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,9 +14,9 @@
   --color-foreground: var(--foreground);
   --color-cream: var(--cream);
   --color-forest: var(--forest);
-  --font-sans: Arial, Helvetica, sans-serif;
+  --font-sans: "Manrope Variable", Arial, sans-serif;
   --font-mono: Consolas, monospace;
-  --font-heading: Arial, Helvetica, sans-serif;
+  --font-heading: "Manrope Variable", Arial, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -85,6 +90,13 @@
   --sidebar-accent-foreground: #183f32;
   --sidebar-border: #d8d9ce;
   --sidebar-ring: #32664e;
+  --hero-surface: #e9e4d9;
+  --hero-surface-strong: #d7d5c8;
+  --hero-ink: #183f32;
+  --hero-ink-soft: #526158;
+  --hero-frame: #f1eee5;
+  --footer-bg: #14251d;
+  --footer-ink: #f7f4ec;
 }
 
 .dark {
@@ -119,6 +131,13 @@
   --sidebar-accent-foreground: #f5f3eb;
   --sidebar-border: #405044;
   --sidebar-ring: #a6cfac;
+  --hero-surface: #233028;
+  --hero-surface-strong: #344237;
+  --hero-ink: #f5f3eb;
+  --hero-ink-soft: #c4d0c5;
+  --hero-frame: #1a241d;
+  --footer-bg: #0d1510;
+  --footer-ink: #f5f3eb;
 }
 
 @layer base {
@@ -130,5 +149,66 @@
   }
   html {
     @apply font-sans;
+  }
+  html[lang="ar"] {
+    font-family: "IBM Plex Sans Arabic", Arial, sans-serif;
+  }
+  html[lang="ar"] .font-heading {
+    font-family: "IBM Plex Sans Arabic", Arial, sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .section-eyebrow {
+    @apply mb-3 text-xs font-bold uppercase tracking-[0.18em] text-primary;
+  }
+  .section-title {
+    @apply font-heading text-[clamp(2.25rem,4.5vw,4.5rem)] font-extrabold leading-[1.06] tracking-[-0.055em] text-foreground;
+  }
+  .section-description {
+    @apply mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg;
+  }
+  .hero-stage {
+    background: var(--hero-surface);
+    color: var(--hero-ink);
+    --hero-cta-bg: var(--forest);
+    --hero-cta-ink: var(--cream);
+  }
+  .hero-stage--forest {
+    background: var(--forest);
+    color: var(--cream);
+    --hero-cta-bg: var(--cream);
+    --hero-cta-ink: var(--forest);
+  }
+  .hero-stage--sage {
+    background: var(--hero-surface-strong);
+  }
+  .hero-cta {
+    background: var(--hero-cta-bg);
+    color: var(--hero-cta-ink);
+  }
+  .hero-image-placeholder {
+    background: linear-gradient(135deg, var(--hero-frame), var(--hero-surface-strong));
+    color: var(--foreground);
+  }
+  .hero-image-placeholder__shape {
+    position: absolute;
+    width: min(72%, 420px);
+    aspect-ratio: 1;
+    border: 1px solid currentColor;
+    border-radius: 48% 52% 42% 58%;
+    opacity: 0.12;
+    transform: rotate(-18deg);
+  }
+  html[lang="ar"] .section-title {
+    letter-spacing: normal;
   }
 }
