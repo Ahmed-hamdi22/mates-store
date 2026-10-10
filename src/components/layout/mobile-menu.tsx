@@ -3,6 +3,7 @@
 import {Menu, Search, X} from 'lucide-react';
 import {Dialog} from 'radix-ui';
 import {LanguageSwitcher} from '@/components/common/language-switcher';
+import {Link} from '@/i18n/navigation';
 
 type MobileMenuProps = {
   locale: string;
@@ -34,24 +35,33 @@ export function MobileMenu({locale, labels}: MobileMenuProps) {
             </Dialog.Close>
           </div>
           <Dialog.Description className="sr-only">{labels.menu}</Dialog.Description>
-          <div className="mt-8 flex min-h-11 items-center gap-3 rounded-md border border-border bg-muted/50 px-4 text-sm text-muted-foreground" aria-disabled="true" title={labels.comingSoon}>
-            <Search aria-hidden="true" className="size-4" />
-            <span>{labels.search}</span>
-          </div>
+          <Dialog.Close asChild>
+            <Link href="/products" className="mt-8 flex min-h-11 items-center gap-3 rounded-md border border-border bg-muted/50 px-4 text-sm text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring">
+              <Search aria-hidden="true" className="size-4 text-muted-foreground" />
+              <span>{labels.search}</span>
+            </Link>
+          </Dialog.Close>
           <nav className="mt-8 flex flex-col border-t border-border" aria-label={labels.menu}>
-            {([['women', labels.women], ['men', labels.men]] as const).map(([key, label]) => (
-              <div key={key} className="flex min-h-14 items-center justify-between border-b border-border text-muted-foreground">
-                <span>{label}</span><span className="text-xs">{labels.comingSoon}</span>
-              </div>
-            ))}
             <Dialog.Close asChild>
-              <a href="#couples" className="flex min-h-14 items-center border-b border-border font-semibold text-foreground focus-visible:outline-2 focus-visible:outline-ring">
-                {labels.couples}
-              </a>
+              <Link href="/products?category=women" className="flex min-h-14 items-center justify-between border-b border-border text-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-ring">
+                <span>{labels.women}</span>
+              </Link>
             </Dialog.Close>
-            <div className="flex min-h-14 items-center justify-between border-b border-border text-muted-foreground">
-              <span>{labels.newIn}</span><span className="text-xs">{labels.comingSoon}</span>
-            </div>
+            <Dialog.Close asChild>
+              <Link href="/products?category=men" className="flex min-h-14 items-center justify-between border-b border-border text-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-ring">
+                <span>{labels.men}</span>
+              </Link>
+            </Dialog.Close>
+            <Dialog.Close asChild>
+              <Link href="/#couples" className="flex min-h-14 items-center justify-between border-b border-border font-semibold text-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-ring">
+                <span>{labels.couples}</span>
+              </Link>
+            </Dialog.Close>
+            <Dialog.Close asChild>
+              <Link href="/products?sort=newest" className="flex min-h-14 items-center justify-between border-b border-border text-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-ring">
+                <span>{labels.newIn}</span>
+              </Link>
+            </Dialog.Close>
           </nav>
           <div className="mt-auto border-t border-border pt-6">
             <LanguageSwitcher locale={locale} />
