@@ -11,10 +11,8 @@ import type {
 import type { Category, Color, Product, ProductImage, ProductVariant, Size } from '@/types/database';
 
 export async function getAdminProducts(filters: AdminProductFilters = {}): Promise<AdminProductListItem[]> {
+  const supabase = await getProductAdminClient();
   try {
-    const supabase = await getProductAdminClient();
-    if (!supabase) throw new Error('Unauthorized admin product read');
-
     let query = supabase.from('products').select('*').order('created_at', { ascending: false });
 
     if (filters.status && filters.status !== 'all') {
@@ -129,10 +127,8 @@ export async function getAdminProducts(filters: AdminProductFilters = {}): Promi
 }
 
 export async function getAdminProductById(id: string): Promise<AdminProductFormData | null> {
+  const supabase = await getProductAdminClient();
   try {
-    const supabase = await getProductAdminClient();
-    if (!supabase) throw new Error('Unauthorized admin product read');
-
     const { data: rawProduct, error: prodErr } = await supabase
       .from('products')
       .select('*')
@@ -192,10 +188,8 @@ export async function getAdminProductById(id: string): Promise<AdminProductFormD
 }
 
 export async function getAdminReferenceData(): Promise<AdminReferenceData> {
+  const supabase = await getProductAdminClient();
   try {
-    const supabase = await getProductAdminClient();
-    if (!supabase) throw new Error('Unauthorized admin product read');
-
     const [categoriesRes, sizesRes, colorsRes] = await Promise.all([
       supabase.from('categories').select('*').order('sort_order', { ascending: true }),
       supabase.from('sizes').select('*').order('sort_order', { ascending: true }),

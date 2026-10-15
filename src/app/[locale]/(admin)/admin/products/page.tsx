@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ProductFilters } from '@/components/admin/products/product-filters';
 import { ProductTable } from '@/components/admin/products/product-table';
 import { getAdminProducts, getAdminReferenceData } from '@/features/admin-products/queries';
-import { getProductAdminClient } from '@/features/admin-products/access';
+import {requireAdmin} from '@/features/admin-auth/authorization';
 import { Link } from '@/i18n/navigation';
 import type { ProductStatus } from '@/types/database';
 
@@ -35,7 +34,7 @@ export default async function AdminProductsPage({
 }: AdminProductsPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  if (!(await getProductAdminClient())) notFound();
+  await requireAdmin(locale, `/${locale}/admin/products`);
 
   const rawSearchParams = await searchParams;
 

@@ -108,7 +108,7 @@
     "administrator": "administrator",
     "workspaceReady": "Workspace ready",
     "emptyTitle": "Your store starts here.",
-    "emptyDescription": "The dashboard is ready for store management. Product tools will appear as their feature is integrated. No sales or order data is shown until those features exist.",
+    "emptyDescription": "Manage your catalog, variants, stock, and product images from the Products section. Sales and order data will appear when those features are available.",
     "errorTitle": "The admin workspace couldn't load",
     "errorDescription": "Please try again. If the problem continues, check the store connection.",
     "retry": "Try again"

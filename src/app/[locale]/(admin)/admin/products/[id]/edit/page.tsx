@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ProductForm } from '@/components/admin/products/product-form';
+import {requireAdmin} from '@/features/admin-auth/authorization';
 import { getAdminProductById, getAdminReferenceData } from '@/features/admin-products/queries';
-import { getProductAdminClient } from '@/features/admin-products/access';
 
 interface EditProductPageProps {
   params: Promise<{ locale: string; id: string }>;
@@ -15,6 +15,7 @@ export async function generateMetadata({
   params
 }: EditProductPageProps): Promise<Metadata> {
   const { locale, id } = await params;
+  await requireAdmin(locale, `/${locale}/admin/products/${id}/edit`);
   const [t, product] = await Promise.all([
     getTranslations({ locale, namespace: 'AdminProducts' }),
     getAdminProductById(id)
@@ -37,7 +38,7 @@ export async function generateMetadata({
 export default async function EditProductPage({ params }: EditProductPageProps) {
   const { locale, id } = await params;
   setRequestLocale(locale);
-  if (!(await getProductAdminClient())) notFound();
+  await requireAdmin(locale, `/${locale}/admin/products/${id}/edit`);
 
   const [t, product, referenceData] = await Promise.all([
     getTranslations({ locale, namespace: 'AdminProducts' }),

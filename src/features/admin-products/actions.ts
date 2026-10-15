@@ -15,6 +15,7 @@ export interface ActionResponse<T = unknown> {
 }
 
 export async function uploadProductImageAction(formData: FormData): Promise<ActionResponse<{ id: string; storagePath: string; publicUrl: string; sortOrder: number; isCover: boolean }>> {
+  const supabase = await getProductAdminClient();
   try {
     const file = formData.get('file');
     const productId = formData.get('productId');
@@ -30,8 +31,6 @@ export async function uploadProductImageAction(formData: FormData): Promise<Acti
     if (!validation.isValid) {
       return { success: false, error: validation.error || 'Invalid image file.' };
     }
-    const supabase = await getProductAdminClient();
-    if (!supabase) return { success: false, error: 'Unauthorized.' };
     const db = supabase as unknown as SupabaseClient;
 
     const {data: product, error: productError} = await db.from('products').select('id').eq('id', productId).maybeSingle();
@@ -88,10 +87,9 @@ export async function uploadProductImageAction(formData: FormData): Promise<Acti
 }
 
 export async function deleteProductStorageImageAction(productId: string, imageId: string): Promise<ActionResponse> {
+  const supabase = await getProductAdminClient();
   try {
     if (!UUID_PATTERN.test(productId) || !UUID_PATTERN.test(imageId)) return {success: false, error: 'Invalid image request.'};
-    const supabase = await getProductAdminClient();
-    if (!supabase) return { success: false, error: 'Unauthorized.' };
     const db = supabase as unknown as SupabaseClient;
 
     const {data: image, error: readError} = await db.from('product_images')
@@ -123,6 +121,7 @@ export async function deleteProductStorageImageAction(productId: string, imageId
 }
 
 export async function createProductAction(data: AdminProductFormData): Promise<ActionResponse<{ productId: string }>> {
+  const supabase = await getProductAdminClient();
   try {
     const validation = validateProductForm(data);
     if (!validation.isValid) {
@@ -134,8 +133,6 @@ export async function createProductAction(data: AdminProductFormData): Promise<A
     }
     if (data.images.length > 0) return {success: false, error: 'Save the product before adding images.'};
 
-    const supabase = await getProductAdminClient();
-    if (!supabase) return { success: false, error: 'Unauthorized.' };
     const db = supabase as unknown as SupabaseClient;
 
     // 1. Check slug uniqueness
@@ -231,6 +228,7 @@ export async function createProductAction(data: AdminProductFormData): Promise<A
 }
 
 export async function updateProductAction(productId: string, data: AdminProductFormData): Promise<ActionResponse> {
+  const supabase = await getProductAdminClient();
   try {
     if (!UUID_PATTERN.test(productId)) return {success: false, error: 'Invalid product.'};
     const validation = validateProductForm(data);
@@ -242,8 +240,6 @@ export async function updateProductAction(productId: string, data: AdminProductF
       };
     }
 
-    const supabase = await getProductAdminClient();
-    if (!supabase) return { success: false, error: 'Unauthorized.' };
     const db = supabase as unknown as SupabaseClient;
 
     // 1. Check slug uniqueness (excluding this product)
@@ -382,10 +378,9 @@ export async function updateProductAction(productId: string, data: AdminProductF
 }
 
 export async function deleteProductAction(productId: string): Promise<ActionResponse> {
+  const supabase = await getProductAdminClient();
   try {
     if (!UUID_PATTERN.test(productId)) return {success: false, error: 'Invalid product.'};
-    const supabase = await getProductAdminClient();
-    if (!supabase) return { success: false, error: 'Unauthorized.' };
     const db = supabase as unknown as SupabaseClient;
 
     // 1. Check if product is referenced in couples_bundles

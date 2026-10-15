@@ -1,14 +1,12 @@
 import 'server-only';
 
+import {getLocale} from 'next-intl/server';
+import {requireAdmin} from '@/features/admin-auth/authorization';
 import {createClient} from '@/lib/supabase/server';
 
-/** Temporary standalone-branch guard. Replace with requireAdmin after auth merge. */
+/** Authenticate each product read or mutation before creating its request-scoped client. */
 export async function getProductAdminClient() {
+  await requireAdmin(await getLocale());
   const supabase = await createClient();
-  const {data: {user}, error: userError} = await supabase.auth.getUser();
-  if (userError || !user) return null;
-
-  const {data: isAdmin, error: adminError} = await supabase.rpc('is_admin');
-  if (adminError || isAdmin !== true) return null;
   return supabase;
 }
