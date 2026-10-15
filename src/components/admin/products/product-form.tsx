@@ -233,7 +233,7 @@ export function ProductForm({
       )}
 
       {successMessage && (
-        <div className="flex items-center gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-bold text-emerald-700 dark:text-emerald-300">
+        <div className="flex items-center gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-bold text-emerald-700 dark:border-border dark:bg-muted dark:text-emerald-300">
           <CheckCircle2 className="size-4.5" />
           <span>{successMessage}</span>
         </div>

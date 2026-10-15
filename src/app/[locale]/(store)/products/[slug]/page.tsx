@@ -91,11 +91,11 @@ export default async function ProductDetailPage({params}: ProductDetailPageProps
           )}
 
           {product.isOutOfStock ? (
-            <span className="absolute start-4 top-4 rounded-md bg-destructive/90 px-3 py-1.5 text-xs font-semibold text-white shadow-xs">
+            <span className="absolute start-4 top-4 rounded-md bg-destructive/90 px-3 py-1.5 text-xs font-semibold text-white shadow-xs dark:text-background">
               {t('outOfStock')}
             </span>
           ) : hasDiscount ? (
-            <span className="absolute start-4 top-4 rounded-md bg-forest px-3 py-1.5 text-xs font-semibold text-cream shadow-xs">
+            <span className="absolute start-4 top-4 rounded-md bg-forest px-3 py-1.5 text-xs font-semibold text-cream shadow-xs dark:bg-primary dark:text-primary-foreground">
               {t('sale')}
             </span>
           ) : null}

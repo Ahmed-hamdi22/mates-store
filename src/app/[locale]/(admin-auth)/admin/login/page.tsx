@@ -40,7 +40,7 @@ export default async function AdminLoginPage({
           <p className="section-eyebrow">Mates Store / Admin</p>
           <h1 className="section-title">{t('welcome')}</h1>
           <p className="section-description">{t('intro')}</p>
-          <div aria-hidden="true" className="mt-12 hidden h-48 rounded-3xl border border-border bg-[linear-gradient(135deg,var(--forest),var(--hero-surface))] lg:block" />
+          <div aria-hidden="true" className="mt-12 hidden h-48 rounded-3xl border border-border bg-[linear-gradient(135deg,var(--login-art-accent),var(--hero-surface))] lg:block" />
         </div>
         <section aria-labelledby="login-title" className="w-full max-w-md rounded-3xl border border-border bg-card p-7 shadow-sm sm:p-10 lg:justify-self-end">
           <h2 id="login-title" className="text-2xl font-bold tracking-tight">

@@ -71,11 +71,11 @@ export function ProductCard({product, locale = 'en', labels}: ProductCardProps) 
         {/* Status Badges */}
         <div className="absolute start-3 top-3 flex flex-col gap-1.5 z-10 pointer-events-none">
           {product.isOutOfStock ? (
-            <span className="rounded-md bg-destructive/90 px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide text-white shadow-xs backdrop-blur-xs">
+            <span className="rounded-md bg-destructive/90 px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide text-white shadow-xs backdrop-blur-xs dark:text-background">
               {labels.outOfStock}
             </span>
           ) : hasDiscount && discountPercent ? (
-            <span className="rounded-md bg-forest px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide text-cream shadow-xs">
+            <span className="rounded-md bg-forest px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide text-cream shadow-xs dark:bg-primary dark:text-primary-foreground">
               {isArabic ? `خصم ${discountPercent}%` : `-${discountPercent}%`}
             </span>
           ) : null}
