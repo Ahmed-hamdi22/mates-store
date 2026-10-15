@@ -1,24 +1,13 @@
-import {getTranslations} from 'next-intl/server';
-import {ThemeSwitcher} from '@/components/common/theme-switcher';
-import {Link} from '@/i18n/navigation';
+import {AdminShell} from '@/components/admin/admin-shell';
+import {requireAdmin} from '@/features/admin-auth/authorization';
 
-export default async function AdminLayout({children}: {children: React.ReactNode}) {
-  const t = await getTranslations('Admin');
+export const dynamic = 'force-dynamic';
 
-  return (
-    <div className="min-h-screen bg-muted/40">
-      <header className="border-b bg-background">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <span className="font-semibold">{t('title')}</span>
-          <div className="flex items-center gap-3">
-            <Link href="/" className="text-sm underline-offset-4 hover:underline">
-              {t('back')}
-            </Link>
-            <ThemeSwitcher />
-          </div>
-        </div>
-      </header>
-      <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
-    </div>
-  );
+export default async function AdminLayout({children, params}: {
+  children: React.ReactNode;
+  params: Promise<{locale: string}>;
+}) {
+  const {locale} = await params;
+  const admin = await requireAdmin(locale);
+  return <AdminShell email={admin.email}>{children}</AdminShell>;
 }
